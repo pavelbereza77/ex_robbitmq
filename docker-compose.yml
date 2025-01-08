@@ -1,0 +1,30 @@
+services:
+  rabbitmq:
+    image: "heidiks/rabbitmq-delayed-message-exchange:latest"
+    hostname: rabbitmqhost
+    restart: always
+    ports:
+      - "5672:5672"  # порт для AMQP
+      - "15672:15672"  # порт для управляющего интерфейс
+    volumes:
+      - ./rabbitmq_data:/var/lib/rabbitmq  # сохраняем данные на диске
+    environment:
+      - RABBITMQ_DEFAULT_USER=pavel@  # имя пользователя
+      - RABBITMQ_DEFAULT_PASS=1234  # пароль
+      - RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS=-rabbit disk_free_limit 1431655766  # 1.3 Gib
+
+#services:
+#  rabbitmq:
+#    image: "rabbitmq:management"  # используем образ с включенным управлением
+#    hostname: rabbitmqhost
+#    restart: always
+#    ports:
+#      - "5672:5672"  # порт для AMQP
+#      - "15672:15672"  # порт для управляющего интерфейса
+#    volumes:
+#      - ./rabbitmq_data:/var/lib/rabbitmq
+#    environment:
+#      - RABBITMQ_DEFAULT_USER=pavel
+#      - RABBITMQ_DEFAULT_PASS=123
+#      - RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS=-rabbit disk_free_limit 1431655766
+
